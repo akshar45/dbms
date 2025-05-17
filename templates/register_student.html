@@ -1,0 +1,213 @@
+{#
+   Jinja2 Template Variables for Theme (Conceptual Use)
+   These variables would typically be defined in your Python/backend
+   context and passed to the template render function.
+   {% set color_primary_blue = '#004080' %}      // Header, Headings, Main Text
+   {% set color_accent_blue = '#007bff' %}       // Buttons, Links
+   {% set color_background_light = '#f8f9fa' %}  // Page Background
+   {% set color_white = '#ffffff'             // Card Background, Header Text
+   {% set color_border_light = '#ced4da' %}     // Input Borders
+   {% set page_title = 'Register Student' %}   // Dynamic Title
+   {% set site_title = 'School Library' %}       // Site Title for Header
+#}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {# Example of Jinja variable usage for the title #}
+    <title>{{ page_title | default('Page') }} - {{ site_title | default('Site') }}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet"> {# Using Roboto as a clean sans-serif font #}
+    <style>
+        /* Define CSS variables based on the theme colors */
+        :root {
+            --color-primary-blue: #004080; /* Dark blue */
+            --color-accent-blue: #007bff;  /* Bright blue */
+            --color-background-light: #f8f9fa; /* Light gray */
+            --color-white: #ffffff;       /* White */
+            --color-border-light: #ced4da; /* Light gray border */
+            --color-text-secondary: #6c757d; /* Muted text */
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            background-color: var(--color-background-light);
+            color: #333; /* Default text color, can be overridden */
+            padding-top: 60px; /* Space for fixed header */
+        }
+
+        /* Header styling based on the original image */
+        header {
+            background-color: var(--color-primary-blue);
+            color: var(--color-white);
+            padding: 0.8rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed; /* Keep header at the top */
+            width: 100%;
+            top: 0;
+            left: 0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            z-index: 1000; /* Ensure header is above other content */
+        }
+
+        header .logo {
+            font-size: 1.4rem;
+            font-weight: 700;
+            /* Example: Add a book icon if using a library like FontAwesome */
+            /* &#xf02d; Replace with actual icon code or element if needed */
+            /* margin-right: 10px; */
+        }
+
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        nav ul li {
+            margin-left: 20px;
+        }
+
+        nav ul li a {
+            color: var(--color-white);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+             /* Lighter white on hover, matching theme */
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: underline;
+        }
+
+
+        /* Main container for centering and styling the form area */
+        .container {
+            max-width: 500px; /* Slightly smaller width for this form */
+            margin: 30px auto; /* Center the container and add vertical space */
+            padding: 30px;
+            background-color: var(--color-white); /* White background for the form box */
+            border-radius: 8px; /* Rounded corners */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05); /* Subtle shadow like the cards in the image */
+        }
+
+        h2 {
+            color: var(--color-primary-blue); /* Use primary blue for headings */
+            margin-top: 0;
+            margin-bottom: 20px;
+            text-align: center; /* Center the form title */
+            font-weight: 500;
+        }
+
+        /* Styling for form groups (label + input) */
+        .form-group {
+            margin-bottom: 15px; /* Space between form fields */
+        }
+
+        .form-group label {
+            display: block; /* Make labels block elements for spacing */
+            margin-bottom: 6px; /* Space between label and input */
+            font-weight: 500;
+            color: var(--color-primary-blue); /* Label color */
+            font-size: 0.95rem;
+        }
+
+        /* Styling for input fields */
+        .form-group input[type="text"],
+        .form-group input[type="number"] {
+            width: 100%; /* Inputs take full width of container */
+            padding: 10px 12px; /* Padding inside inputs */
+            border: 1px solid var(--color-border-light); /* Light border */
+            border-radius: 4px; /* Small rounded corners */
+            box-sizing: border-box; /* Include padding and border in element's total width */
+            font-size: 1rem;
+            color: #333; /* Input text color */
+            transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+
+         .form-group input[type="text"]:focus,
+         .form-group input[type="number"]:focus {
+             outline: none; /* Remove default outline */
+             border-color: var(--color-accent-blue); /* Accent blue border on focus */
+             box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); /* Subtle blue glow on focus */
+         }
+
+
+        /* Styling for the submit button */
+        input[type="submit"] {
+            display: block; /* Make button block element */
+            width: 100%; /* Button takes full width */
+            padding: 12px;
+            margin-top: 20px; /* Space above the button */
+            background-color: var(--color-accent-blue); /* Accent blue background */
+            color: var(--color-white); /* White text */
+            border: none; /* No border */
+            border-radius: 4px; /* Rounded corners */
+            font-size: 1.1rem;
+            cursor: pointer; /* Indicate it's clickable */
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+            font-weight: 500;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3; /* Slightly darker blue on hover */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Hide the <br> tags from the original HTML as we use form-group divs for layout */
+        form br {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    {# Example Header based on the image - can be included in a base template #}
+    <header>
+        <div class="logo">
+             {# You might add a book icon here: <i class="fas fa-book"></i> #}
+             {{ site_title | default('School Library') }}
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li> {# Example of dynamic link generation #}
+                <li><a href="#">Catalog</a></li>
+                <li><a href="#">My Books</a></li>
+                <li><a href="#">About</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        {# Example of Jinja variable usage for the heading #}
+        <h2>{{ page_title | default('Register Student') }}</h2>
+
+        {# The original form structure, now wrapped in divs for styling #}
+        <form method="POST">
+            <div class="form-group">
+                <label for="student_id">ID:</label>
+                <input type="number" id="student_id" name="student_id" required> {# Added 'required' attribute #}
+            </div>
+
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required> {# Added 'required' attribute #}
+            </div>
+
+            <div class="form-group">
+                <label for="department">Department:</label>
+                <input type="text" id="department" name="department" required> {# Added 'required' attribute #}
+            </div>
+
+            <input type="submit" value="Register">
+        </form>
+    </div>
+
+</body>
+</html>

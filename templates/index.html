@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>School Library Management System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { box-sizing: border-box; }
+        a { color: #007bff; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body style="margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; background-color: #f4f6f8;">
+
+    <header style="background-color: #005A9C; color: #fff; padding: 15px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+        <div style="width: 90%; max-width: 1100px; margin: 0 auto; padding: 0 20px; display: flex; justify-content: space-between; align-items: center;">
+            <div style="font-size: 1.5em; font-weight: bold;">
+                <i class="fas fa-book-open" style="margin-right: 8px;"></i> School Library
+            </div>
+            <nav>
+                <ul style="list-style: none; display: flex; margin: 0; padding: 0;">
+                    <li style="margin-left: 25px;"><a href="#" style="color: #fff; text-decoration: none; font-size: 1em; padding: 5px 0; border-bottom: 2px solid #fff;">Home</a></li>
+                    <li style="margin-left: 25px;"><a href="#" style="color: #fff; text-decoration: none; font-size: 1em; padding: 5px 0;">Catalog</a></li>
+                    <li style="margin-left: 25px;"><a href="#" style="color: #fff; text-decoration: none; font-size: 1em; padding: 5px 0;">My Books</a></li>
+                    <li style="margin-left: 25px;"><a href="#" style="color: #fff; text-decoration: none; font-size: 1em; padding: 5px 0;">About</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section style="background-color: #e9ecef; padding: 60px 0; text-align: center;">
+            <div style="width: 90%; max-width: 1100px; margin: 0 auto; padding: 0 20px;">
+                <div style="margin-bottom: 20px;">
+                    <i class="fas fa-tablet-alt" style="font-size: 48px; color: #005A9C; background-color: #fff; border-radius: 50%; padding: 20px; width: 90px; height: 90px; display: inline-flex; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(0,0,0,0.1);"></i>
+                </div>
+                <h1 style="font-size: 2.8em; color: #003366; margin-bottom: 15px; font-weight: 600; margin-top:0;">School Library Management System</h1>
+                <p style="font-size: 1.1em; color: #555; margin-bottom: 30px; max-width: 600px; margin-left: auto; margin-right: auto;">Search, borrow, and manage books easily with our digital library catalog.</p>
+                
+                <form method="GET" action="/search" style="display: flex; justify-content: center; align-items: center; max-width: 600px; margin: 0 auto;">
+                    <input type="text" name="q" placeholder="Search by title or author..." style="flex-grow: 1; padding: 12px 15px; font-size: 1em; border: 1px solid #ccc; border-radius: 4px 0 0 4px; outline: none; margin:0;">
+                    <input type="submit" value="Search" style="background-color: #007bff; color: white; border: none; padding: 12px 20px; font-size: 1em; cursor: pointer; border-radius: 0 4px 4px 0; outline: none; margin:0;">
+                </form>
+            </div>
+        </section>
+
+        <section style="padding: 50px 0; background-color: #f4f6f8;">
+            <div style="width: 90%; max-width: 1100px; margin: 0 auto; padding: 0 20px;">
+                <h2 style="font-size: 2em; color: #333; margin-bottom: 30px; margin-top:0;">Quick Access</h2>
+                <div style="display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap;">
+                    <div style="background-color: #fff; padding: 25px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.08); flex: 1; min-width: 280px;">
+                        <h3 style="font-size: 1.4em; color: #005A9C; margin-bottom: 10px; margin-top:0;">New Arrivals</h3>
+                        <p style="font-size: 0.95em; color: #555; margin-bottom: 15px;">Check out the latest books added to our library.</p>
+                        <a href="#" style="font-weight: bold; color: #007bff;">View Books →</a>
+                    </div>
+                    <div style="background-color: #fff; padding: 25px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.08); flex: 1; min-width: 280px;">
+                        <h3 style="font-size: 1.4em; color: #005A9C; margin-bottom: 10px; margin-top:0;">Popular Books</h3>
+                        <p style="font-size: 0.95em; color: #555; margin-bottom: 15px;">Discover what other students are reading right now.</p>
+                        <a href="#" style="font-weight: bold; color: #007bff;">View Books →</a>
+                    </div>
+                    <div style="background-color: #fff; padding: 25px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.08); flex: 1; min-width: 280px;">
+                        <h3 style="font-size: 1.4em; color: #005A9C; margin-bottom: 10px; margin-top:0;">Reading Lists</h3>
+                        <p style="font-size: 0.95em; color: #555; margin-bottom: 15px;">Curated lists for different subjects and interests.</p>
+                        <a href="#" style="font-weight: bold; color: #007bff;">View Lists →</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section style="padding: 40px 0; background-color: #fff;">
+            <div style="width: 90%; max-width: 1100px; margin: 0 auto; padding: 0 20px;">
+                <h2 style="font-size: 2em; color: #333; margin-bottom: 20px; text-align: center; margin-top:0;">Available Books</h2>
+                <ul style="list-style: none; padding: 0; max-width: 800px; margin: 0 auto;">
+                    {% if books %}
+                        {% for book in books %}
+                        <li style="background-color: #f9f9f9; border: 1px solid #eee; padding: 10px 15px; margin-bottom: 8px; border-radius: 4px; font-size: 0.95em;">
+                            {{ book.Title }} by {{ book.Author }} — {{ book.AvailableCopies }}/{{ book.TotalCopies }} available
+                        </li>
+                        {% endfor %}
+                    {% else %}
+                        <li style="background-color: #f9f9f9; border: 1px solid #eee; padding: 10px 15px; margin-bottom: 8px; border-radius: 4px; font-size: 0.95em;">No books available or list is empty.</li>
+                    {% endif %}
+                </ul>
+            </div>
+        </section>
+        
+        <section style="padding: 30px 0; text-align: center; background-color: #e9ecef;">
+            <div style="width: 90%; max-width: 1100px; margin: 0 auto; padding: 0 20px;">
+                <a href="/add_book" style="margin: 0 10px; font-weight: 500;">Add Book</a> | 
+                <a href="/register_student" style="margin: 0 10px; font-weight: 500;">Register Student</a> | 
+                <a href="/issue_book" style="margin: 0 10px; font-weight: 500;">Issue Book</a> | 
+                <a href="/return_book" style="margin: 0 10px; font-weight: 500;">Return Book</a> | 
+                <a href="/issued_books" style="margin: 0 10px; font-weight: 500;">View Issued Books</a>
+            </div>
+        </section>
+    </main>
+
+    <footer style="background-color: #343a40; color: #f8f9fa; text-align: center; padding: 20px 0; margin-top: 30px;">
+        <div style="width: 90%; max-width: 1100px; margin: 0 auto; padding: 0 20px;">
+            <p style="margin:0;">© 2023 School Library. All rights reserved.</p>
+        </div>
+    </footer>
+
+</body>
+</html>

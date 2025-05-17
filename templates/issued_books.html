@@ -1,0 +1,214 @@
+{#
+   Jinja2 Template Variables for Theme (Conceptual Use)
+   These variables would typically be defined in your Python/backend
+   context and passed to the template render function.
+   {% set color_primary_blue = '#004080' %}      // Header, Headings, Main Text
+   {% set color_accent_blue = '#007bff' %}       // Buttons, Links (though none on this specific page body)
+   {% set color_background_light = '#f8f9fa' %}  // Page Background
+   {% set color_white = '#ffffff' %}             // Card Background, Header Text
+   {% set color_border_light = '#ced4da' %}     // Input Borders (not applicable here)
+   {% set page_title = 'Issued Books' %}       // Dynamic Title
+   {% set site_title = 'School Library' %}       // Site Title for Header
+   {% set issued = issued %}                     // List of issued book records passed from backend
+#}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {# Example of Jinja variable usage for the title #}
+    <title>{{ page_title | default('Page') }} - {{ site_title | default('Site') }}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet"> {# Using Roboto as a clean sans-serif font #}
+    <style>
+        /* Define CSS variables based on the theme colors */
+        :root {
+            --color-primary-blue: #004080; /* Dark blue */
+            --color-accent-blue: #007bff;  /* Bright blue */
+            --color-background-light: #f8f9fa; /* Light gray */
+            --color-white: #ffffff;       /* White */
+            --color-border-light: #ced4da; /* Light gray border */
+            --color-text-secondary: #6c757d; /* Muted text */
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            background-color: var(--color-background-light);
+            color: #333; /* Default text color */
+            padding-top: 60px; /* Space for fixed header */
+        }
+
+        /* Header styling based on the original image */
+        header {
+            background-color: var(--color-primary-blue);
+            color: var(--color-white);
+            padding: 0.8rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed; /* Keep header at the top */
+            width: 100%;
+            top: 0;
+            left: 0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            z-index: 1000; /* Ensure header is above other content */
+        }
+
+        header .logo {
+            font-size: 1.4rem;
+            font-weight: 700;
+            /* Example: Add a book icon if using a library like FontAwesome */
+            /*  Replace with actual icon code or element if needed */
+            /* margin-right: 10px; */
+        }
+
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        nav ul li {
+            margin-left: 20px;
+        }
+
+        nav ul li a {
+            color: var(--color-white);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+             /* Lighter white on hover, matching theme */
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: underline;
+        }
+
+        /* Main container for centering and styling the content area */
+        .container {
+            max-width: 700px; /* Allow decent width for the list */
+            margin: 30px auto; /* Center the container and add vertical space */
+            padding: 30px;
+            background-color: var(--color-white); /* White background */
+            border-radius: 8px; /* Rounded corners */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05); /* Subtle shadow */
+        }
+
+        h2 {
+            color: var(--color-primary-blue); /* Use primary blue for headings */
+            margin-top: 0;
+            margin-bottom: 20px;
+            font-weight: 500;
+            /* text-align: center; /* Optional: center heading */
+        }
+
+        /* Styling for the issued books list */
+        ul {
+            list-style: none; /* Remove default bullets for a cleaner look */
+            padding: 0; /* Remove default padding */
+            margin: 0; /* Remove default margin */
+        }
+
+        li {
+            background-color: var(--color-background-light); /* Slight off-white background for list items */
+            border: 1px solid var(--color-border-light); /* Light border for separation */
+            border-radius: 4px; /* Small rounded corners */
+            padding: 12px 15px; /* Padding inside list item */
+            margin-bottom: 10px; /* Space between list items */
+            font-size: 1rem;
+            color: #555; /* Slightly softer text color */
+            display: flex; /* Use flexbox for potential future layout */
+            justify-content: space-between; /* Distribute content */
+            align-items: center; /* Vertically align content */
+            flex-wrap: wrap; /* Allow items to wrap on smaller screens */
+        }
+
+        li:last-child {
+             margin-bottom: 0; /* No extra space after the last item */
+        }
+
+        li span {
+            margin-right: 15px; /* Space between different pieces of info */
+            white-space: nowrap; /* Prevent text within span from wrapping */
+        }
+
+        li span:last-child {
+            margin-right: 0;
+        }
+
+        li span strong {
+            color: var(--color-primary-blue); /* Highlight key IDs */
+            font-weight: 500;
+        }
+
+        /* Style for the "Not Returned" text */
+        li span .not-returned {
+             font-style: italic;
+             color: var(--color-text-secondary); /* Muted color */
+        }
+
+        /* Style for message when no books are issued */
+        .no-records {
+            text-align: center;
+            color: var(--color-text-secondary);
+            font-style: italic;
+            padding: 20px;
+            border: 1px dashed var(--color-border-light);
+            border-radius: 4px;
+            margin-bottom: 20px; /* Space below the message */
+        }
+    </style>
+</head>
+<body>
+
+    {# Example Header based on the image - can be included in a base template #}
+    <header>
+        <div class="logo">
+             {# You might add a book icon here: <i class="fas fa-book"></i> #}
+             {{ site_title | default('School Library') }}
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li> {# Example of dynamic link generation #}
+                <li><a href="#">Catalog</a></li>
+                <li><a href="#">My Books</a></li>
+                <li><a href="#">About</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        {# Example of Jinja variable usage for the heading #}
+        <h2>{{ page_title | default('Issued Books') }}</h2>
+
+        {# Jinja loop for displaying results #}
+        <ul>
+            {% for record in issued %}
+              <li>
+                  {# Use spans to structure data and apply styles #}
+                  <span>Book ID: <strong>{{ record.BookID | default('N/A') }}</strong></span>
+                  <span>Student ID: <strong>{{ record.StudentID | default('N/A') }}</strong></span>
+                  <span>Issued: {{ record.IssueDate | default('N/A') }}</span>
+                  <span>Returned:
+                      {# Jinja conditional for ReturnDate, add a class for styling #}
+                      {% if record.ReturnDate %}
+                          {{ record.ReturnDate }}
+                      {% else %}
+                          <span class="not-returned">Not Returned</span>
+                      {% endif %}
+                  </span>
+              </li>
+            {% else %}
+              {# Message if no records found #}
+              <div class="no-records">
+                  No books are currently issued.
+              </div>
+            {% endfor %}
+        </ul>
+    </div>
+
+</body>
+</html>

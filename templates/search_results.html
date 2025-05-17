@@ -1,0 +1,184 @@
+{#
+   Jinja2 Template Variables for Theme (Conceptual Use)
+   These variables would typically be defined in your Python/backend
+   context and passed to the template render function.
+   {% set color_primary_blue = '#004080' %}      // Header, Headings, Main Text
+   {% set color_accent_blue = '#007bff' %}       // Buttons, Links
+   {% set color_background_light = '#f8f9fa' %}  // Page Background
+   {% set color_white = '#ffffff' %}             // Card Background, Header Text
+   {% set color_border_light = '#ced4da' %}     // Input Borders
+   {% set page_title = 'Search Results' %}     // Dynamic Title
+   {% set site_title = 'School Library' %}       // Site Title for Header
+   {% set query = query %}                       // The search query passed from backend
+   {% set results = results %}                   // List of book objects passed from backend
+#}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {# Example of Jinja variable usage for the title #}
+    <title>{{ page_title | default('Search Results') }} - {{ site_title | default('Site') }}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet"> {# Using Roboto as a clean sans-serif font #}
+    <style>
+        /* Define CSS variables based on the theme colors */
+        :root {
+            --color-primary-blue: #004080; /* Dark blue */
+            --color-accent-blue: #007bff;  /* Bright blue */
+            --color-background-light: #f8f9fa; /* Light gray */
+            --color-white: #ffffff;       /* White */
+            --color-border-light: #ced4da; /* Light gray border */
+            --color-text-secondary: #6c757d; /* Muted text */
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            background-color: var(--color-background-light);
+            color: #333; /* Default text color */
+            padding-top: 60px; /* Space for fixed header */
+        }
+
+        /* Header styling based on the original image */
+        header {
+            background-color: var(--color-primary-blue);
+            color: var(--color-white);
+            padding: 0.8rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed; /* Keep header at the top */
+            width: 100%;
+            top: 0;
+            left: 0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            z-index: 1000; /* Ensure header is above other content */
+        }
+
+        header .logo {
+            font-size: 1.4rem;
+            font-weight: 700;
+            /* Example: Add a book icon if using a library like FontAwesome */
+            /*  Replace with actual icon code or element if needed */
+            /* margin-right: 10px; */
+        }
+
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        nav ul li {
+            margin-left: 20px;
+        }
+
+        nav ul li a {
+            color: var(--color-white);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+             /* Lighter white on hover, matching theme */
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: underline;
+        }
+
+        /* Main container for centering and styling the content area */
+        .container {
+            max-width: 700px; /* Allow more width for search results */
+            margin: 30px auto; /* Center the container and add vertical space */
+            padding: 30px;
+            background-color: var(--color-white); /* White background */
+            border-radius: 8px; /* Rounded corners */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05); /* Subtle shadow */
+        }
+
+        h2 {
+            color: var(--color-primary-blue); /* Use primary blue for headings */
+            margin-top: 0;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+        /* Styling for the search results list */
+        ul {
+            list-style: disc; /* Use standard bullets */
+            padding-left: 20px; /* Indent list items */
+            margin-bottom: 20px; /* Space below the list */
+        }
+
+        li {
+            margin-bottom: 10px; /* Space between list items */
+            color: #555; /* Slightly softer text color for results */
+            font-size: 1rem;
+        }
+
+         li strong {
+            color: var(--color-primary-blue); /* Make book title/author stand out slightly */
+         }
+
+        /* Style for the "No results" message */
+        li:last-child {
+             margin-bottom: 0; /* No extra space after the last item */
+        }
+
+        /* Styling for the "Back to Home" link */
+        a {
+            color: var(--color-accent-blue); /* Use accent blue for links */
+            text-decoration: none; /* No underline by default */
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: #0056b3; /* Slightly darker blue on hover */
+            text-decoration: underline; /* Underline on hover */
+        }
+    </style>
+</head>
+<body>
+
+    {# Example Header based on the image - can be included in a base template #}
+    <header>
+        <div class="logo">
+             {# You might add a book icon here: <i class="fas fa-book"></i> #}
+             {{ site_title | default('School Library') }}
+        </div>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li> {# Link updated #}
+                <li><a href="#">Catalog</a></li>
+                <li><a href="#">My Books</a></li>
+                <li><a href="#">About</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        {# Example of Jinja variable usage for the heading #}
+        <h2>Search Results for "{{ query | default('...') }}"</h2> {# Handle case where query might be empty #}
+
+        {# Jinja loop for displaying results #}
+        <ul>
+            {% for book in results %}
+              <li>
+                  {# Example of adding semantic markup and highlighting #}
+                  <strong>{{ book.Title | default('Unknown Title') }}</strong> by {{ book.Author | default('Unknown Author') }}
+                  — {{ book.AvailableCopies | default('N/A') }}/{{ book.TotalCopies | default('N/A') }} available
+              </li>
+            {% else %}
+              <li>No matching books found.</li>
+            {% endfor %}
+        </ul>
+
+        {# Back to Home link #}
+        <a href="/">Back to Home</a>
+    </div>
+
+</body>
+</html>
